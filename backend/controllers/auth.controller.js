@@ -19,17 +19,16 @@ export const signup = async (req, res) => {
     // hash password
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-    // https://avatar-placeholder.iran.liara.run/
 
-    const boyProfilePic = `https://avatar-placeholder.iran.liara.run/public/boy?username=${username}`;
-    const girlProfilePic = `https://avatar-placeholder.iran.liara.run/public/girl?username=${username}`;
+    // generate rendom pfp
+    const profilePic = `https://api.dicebear.com/9.x/adventurer/svg?seed=${username}`;
 
     const newUser = new User({
       fullName,
       username,
       password: hashedPassword,
       gender,
-      profilePic: gender === "male" ? boyProfilePic : girlProfilePic,
+      profilePic,
     });
 
     //Generate JWT token
